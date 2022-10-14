@@ -17,7 +17,6 @@ const router = new Router({
     ]
 })
 
-//动态添加路由
 router.$append = (index) => { 
     router.addRoute(`a${index}`,{
         path: `/a${index}`,

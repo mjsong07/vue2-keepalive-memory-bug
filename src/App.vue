@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>keep-alive includeList:{{indexNameList}}</div>
-        <button @click="routerAdd()">add</button> <button @click="routerDel()">delete</button> <button @click="gc()">gc</button> <span  >usedJSHeapSize<b id="usedJSHeapSize"></b></span>
+        <button @click="routerAdd()">add</button> <button @click="routerDel()">delete</button> <span>usedJSHeapSize<b id="usedJSHeapSize"></b></span>
         <div class="keepaliveBox">
             <keep-alive :include="indexNameList">
                 <router-view />
@@ -10,7 +10,7 @@
         <div class="barBox">
             <div class="box" v-for="(index) in indexList" :key="index">
                 <span @click="routerClick(index)">a{{index}}</span>
-                <button @click="routerDel(index)" title="删除(esc)">x</button>
+                <button @click="routerDel(index)">x</button>
             </div>
         </div>
     </div>
@@ -63,10 +63,6 @@ export default {
         routerClick(index) {
             this.$router.$push(index)
         },
-        gc(){
-            //强制垃圾回收 需要在浏览器启动设置 --js-flags="--expose-gc",并且不打开控制台，没有效果
-            window.gc && window.gc()
-        }, 
     }
 };
 </script>

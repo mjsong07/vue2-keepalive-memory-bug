@@ -6,7 +6,7 @@ export default {
     name:'A',
     data(){
         return {
-            a:new Array(20000000).fill(1),//大概80mb
+            a:new Array(20000000).fill(1),//about 80mb
             myname:""
         }
     },
