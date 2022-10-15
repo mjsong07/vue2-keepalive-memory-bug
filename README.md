@@ -1,6 +1,6 @@
 # vue2-keepalive-memory-leak-bug
 The demo can reproduce the vue keepalive memory problem.
-# operating Steps
+# Steps to reproduce
 1. npm install 
 2. npm run serve 
 3. Open the browser and input the http://localhost:8080/
@@ -10,18 +10,19 @@ The demo can reproduce the vue keepalive memory problem.
 7. Click the add button to create a4-component ， now the usedJSHeapSize is about 330mb.
 8. Click the  a4-component delete button to remove a4-component ，but the usedJSHeapSize still 330mb. 
 9. See the usedJSHeapSize output is not to reduce, now the memory is leak.
- 
-# view the Operating steps through by operating_steps.gif
-# view memory analysis by memory_analysis.gif
-# explain
+# What is expected?
+click the a4-component delete button ，I expected the usedJSHeapSize total is  250mb，but it didn't happen.
+# What is actually happening?
+the usedJSHeapSize total still is about 330mb.
+# Any additional comments? (optional)
 When you click the add button ,the usedJSHeapSize will increase about 80mb.
-click four times ,the usedJSHeapSize total is about 330mb.
-next click the a4-component delete button ，the usedJSHeapSize Should be reduce 80mb，but it didn't happen.
+click four times ,the usedJSHeapSize total is about 330mb. 
+next click the a4-component delete button ，the usedJSHeapSize Should be reduce 80mb，expected is about 250mb.
+but usedJSHeapSize total still is about 330mb. 
+you can view operating_steps.gif Steps to reproduce and view memory_analysis.gif to find the memory leak reason.
 # memory analysis
-use the chrome memory tool ，We can find The bug because
-the a3-component.componentInstance.$vnode.parent.componentOptions.children[0] is a4-component.
-so the a4-component can not be Memory free.
-
+use the chrome memory tool and analysis report  ，We can find The bug because
+the a3-component.componentInstance.$vnode.parent.componentOptions.children[0] is a4-component.so the a4-component can not be Memory free.
 # fixed the bug 
 I try to fixed the bug in the vue2.7.12 -> keepalive.js -> render() 
 path: src\core\components\keep-alive.ts
